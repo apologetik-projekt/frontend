@@ -1,16 +1,18 @@
 import Alert from '../components/alert'
-import Footer from '../components/footer'
 import Meta from '../components/meta'
+import Head from 'next/head'
 
-export default function Layout({ preview, children }) {
+export default function Layout({ preview, children, title}) {
   return (
     <>
       <Meta />
-      <div className="min-h-screen">
+      <Head>
+        <title>Der Apologetik Channel {title ? `- ${title}` : ""}</title>  
+      </Head>
+      <div className="min-h-screen bg-gray-100">
         <Alert preview={preview} />
         <main>{children}</main>
       </div>
-      <Footer />
     </>
   )
 }

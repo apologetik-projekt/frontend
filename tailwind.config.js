@@ -1,33 +1,40 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 module.exports = {
   purge: ['./components/**/*.js', './pages/**/*.js'],
+  mode: 'jit',
   theme: {
     extend: {
       colors: {
-        'accent-1': '#FAFAFA',
-        'accent-2': '#EAEAEA',
-        'accent-7': '#333',
-        success: '#0070f3',
-        cyan: '#79FFE1',
+        teal: colors.teal,
+        gray: colors.trueGray,
+        coolgray: colors.coolGray
       },
-      spacing: {
-        28: '7rem',
+      cursor: {
+        menu: 'context-menu'
       },
-      letterSpacing: {
-        tighter: '-.04em',
+      fontFamily: {
+        'serif': ['Moret-Bold', ...defaultTheme.fontFamily.serif],
+        'sans': ["-apple-system", "BlinkMacSystemFont", "Inter", "system-ui", ...defaultTheme.fontFamily.sans]
       },
       lineHeight: {
-        tight: 1.2,
+        'super-tight': '0.94',
       },
-      fontSize: {
-        '5xl': '2.5rem',
-        '6xl': '2.75rem',
-        '7xl': '4.5rem',
-        '8xl': '6.25rem',
-      },
-      boxShadow: {
-        small: '0 5px 10px rgba(0, 0, 0, 0.12)',
-        medium: '0 8px 30px rgba(0, 0, 0, 0.12)',
-      },
-    },
+      typography: (theme) => ({
+        DEFAULT: {
+          css: {
+            color: theme('colors.gray.800')
+          },
+        },
+        'base': {
+          css: {
+            fontSize: '1.0625rem'
+          },
+        }
+      }),
+    }
   },
+  plugins: [
+    require('@tailwindcss/typography')
+  ],
 }

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+		<radialGradient id="radial-gradient" cx="0.89" cy="0" r="0.77" gradient-transform="matrix(-0.457, 0.89, -0.476, -0.245, 1.201, -0.67)" gradientUnits="objectBoundingBox">
+			<stop offset="0" stop-color="#3c241e"/>
+			<stop offset="0.406" stop-color="#392f27"/>
+			<stop offset="1" stop-color="#23241f"/>
+		</radialGradient>
+	</defs>
+	<g id="Pfad_1" data-name="Pfad 1" opacity="0.89" fill="url(#radial-gradient)">
+		<rect height="100%" width="100%" stroke="none"/>
+	</g>
+</svg>
