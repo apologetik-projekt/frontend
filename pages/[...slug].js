@@ -8,6 +8,7 @@ import Navigation from '../components/navigation'
 import {getPage, getNavStructure} from '../lib/api'
 import Footer from '../components/footer'
 import { NavigationContext } from '../lib/context'
+import ContactForm from '../components/contact-form'
 
 export default function Slug({
 	page,
@@ -16,7 +17,7 @@ export default function Slug({
   preview,
 }) {
  
-  const router = useRouter()
+  //const router = useRouter()
   // if (!router.isFallback && !page) {
   //   return <ErrorPage statusCode={404} />
   // }
@@ -52,6 +53,9 @@ export default function Slug({
                 {members}
               </div>
             )
+          }
+          if (block.type === "snippet") {
+            return <ContactForm />
           }
         })}							
       </main>

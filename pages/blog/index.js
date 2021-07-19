@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
+import Meta from '../../components/meta'
 import {fetchKQL} from '../../lib/api'
 
 
@@ -28,9 +29,7 @@ export default function Blog({articles}) {
 						<h2 className="font-extrabold leading-none text-4xl">
 								{latestArticle.title}
 						</h2>
-						<p className="text-gray-600 leading-snug mt-3" 
-							dangerouslySetInnerHTML={{__html: "Im Namen Gottes wurde viel Unrecht verursacht. Wie soll jemand an die Existenz eines Gottes glauben können, wenn dieser scheinbar der Grund für all dieses Unrecht ist?"}}>
-						</p>
+						<p className="text-gray-600 leading-snug mt-3" >{latestArticle.meta_description}</p>
 					</div>
 			</a>
 			</Link>
@@ -46,7 +45,7 @@ export default function Blog({articles}) {
 						</div>
 						<div className="py-2 md:py-0.5">
 							<h3 className="font-bold text-gray-900 leading-tight text-[1.4rem] mb-1">{article.title}</h3>
-							<p className="text-gray-600">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit maxime fugiat, modi tempora veritatis ad sunt? Facere natus, eius perspiciatis repellendus, veniam.</p>
+							<p className="text-gray-600">{article.meta_description}</p>
 							<button className="bg-gray-300 hidden hover:bg-gray-200 text-gray-800 font-medium text-sm px-3 float-right py-0.5 mt-1 mr-1 rounded-full">mehr lesen</button>
 						</div>
 					</a></Link>
@@ -67,6 +66,7 @@ export async function getStaticProps({ params }) {
 				"title": true,
 				"image": true,
 				"author": true,
+				"meta_description": true,
 				"slug": "page.uid"
 			}
 	}).then(res=>res.data)

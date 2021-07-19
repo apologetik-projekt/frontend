@@ -17,9 +17,6 @@ export default function Index({ navigation, page, featuredVideos, preview }) {
   // console.log(page.content.block)
   return (
    <NavigationContext.Provider value={navigation}>
-      <Head>
-        <title>Der Apologetik Channel - Christliche Apologetik</title>  
-      </Head>
       <Hero heading={page.content.hero} image={image}>
         <Navigation key="navigation" nav={navigation} background="dark" />
       </Hero>

@@ -1,11 +1,24 @@
 import { fetchKQL } from "../../lib/api"
 import Image from 'next/image'
 import Citation from "../../components/citation"
+import { NextSeo } from "next-seo"
 
 export default function Article({article}){
 	return (	
 		<article className="max-w-4xl mx-auto p-4 pb-10">
-			
+			<NextSeo
+				title={`${article.seo_title ?? article.title} | Apologetik Channel`}
+				description={article.description}
+				//canonical="https://www.canonical.ie/"
+				openGraph={{
+					url: 'https://apologetik-channel.de/'+article.uri,
+					title: `${article.seo_title ?? article.title} | Apologetik Channel`,
+					description: article.description,
+					images: [{url: article.image.url}],
+					site_name: 'Der Apologetik Channel',
+				}}
+				twitter={{cardType: 'summary'}}
+			 />
 			<header className="max-w-2xl mx-auto px-1">
 				<h1 className="font-extrabold text-5xl md:text-7xl pt-2">{article?.title}</h1>
 				<div className="flex items-center py-4 mt-2 -ml-0.5">
@@ -19,7 +32,7 @@ export default function Article({article}){
 			</header>
 
 			<div className="my-3 -mx-4 md:m-4 md:mb-10">
-				<Image className="object-cover bg-black origin-center w-full" src={article ? article.image.url : "https:\/\/apologetik.test\/media\/pages\/blog\/ich-glaube-nicht-an-gott-leid\/ec8d2679ea-1626271043\/jonathan-rados-sbxt82csmxa-unsplash.jpg"} alt="Image" width="836" height="400"/>
+				<Image className="object-cover bg-black origin-center w-full" src={article ? article.image.url : "http:\/\/apologetik.test\/media\/pages\/blog\/ich-glaube-nicht-an-gott-leid\/ec8d2679ea-1626271043\/jonathan-rados-sbxt82csmxa-unsplash.jpg"} alt="Image" width="836" height="400"/>
 			</div>
 			
 			<section className="prose-lg max-w-2xl mx-auto px-1 -mt-1">
@@ -68,7 +81,11 @@ export async function getStaticProps({ params }) {
 				"date": "page.date.toDate('d.m.Y')",
 				"image": true,
 				"tags": true,
-				"blocks": "page.content.blocks.toBlocks"
+				"uri": true,
+				"blocks": "page.content.blocks.toBlocks",
+				"meta_title": true,
+				"meta_description": true,
+				"meta_author": true,
 			}
 	})
 
