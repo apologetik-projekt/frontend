@@ -1,29 +1,36 @@
 import { useState } from "react"
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useNavigation } from "../lib/hooks"
+import useStateMachine from "@cassiozen/usestatemachine"
+import {useRouter} from "next/router"
 
-export default function MobileMenu({nav = []}) {
-	const [open, setOpen] = useState(false)
 
-	// const nav = [
-	// 	{ title: "Home", slug: "/" },
-	// 	{ title: "Über uns", slug: "", children: [
-	// 			{title: "Das Team", slug: ""},
-	// 			{title: "Was machen wir?", slug: ""},
-	// 			{title: "Was ist Apologetik?", slug: ""}
-	// 		] 
-	// 	},
-	// 	{ title: "Blog", slug: "/blog" },
-	// 	{ title: "Videos", slug: "/videos" },
-	// 	{ title: "Spenden", slug: "" },
-	// 	{ title: "Kontakt", slug: "" }
-	// ]
-	
-	const { activePath } = useNavigation()
+export default function MobileMenu() {
+	const { navigation, activePath } = useNavigation()
 
-	
-	const variants = {
+	const [ menuState, setMenuState ] = useStateMachine()({
+		initial: 'closed',
+		states: {
+			open: {
+				on: { 
+					CLOSE: 'closed',
+					TRANSITION: 'transition'
+				},
+			},
+			transition: {
+				on: { CLOSE: 'closed' },
+				effect({ send }) {
+					setTimeout(()=>send('CLOSE'), 930);
+				},
+			},
+			closed: {
+				on: { OPEN: 'open'}
+			}
+		},
+	});
+
+	const menuFrame = {
 		open: {
 			width: '100vw',
 			height: '100vh',
@@ -43,12 +50,11 @@ export default function MobileMenu({nav = []}) {
 			borderRadius: '100%',
 			transition: {
 				duration: 0.2,
-				delay: open ? 0.3 : 0,
-				borderRadius: {	delay: open ? 0.5 : 0.1,	duration: 0.08	}
+				borderRadius: {	delay: 0.1,	duration: 0.08 }
 			}
 		}
 	}
-	const menu = {
+	const menuList = {
 		hidden: { opacity: 0 },
 		show: {
 			opacity: 1,
@@ -58,7 +64,7 @@ export default function MobileMenu({nav = []}) {
 		}
 	}
 	
-	const menuItem= {
+	const menuItem = {
 		hidden: { 
 			opacity: 0, y: 30, x: 40
 		},
@@ -68,38 +74,45 @@ export default function MobileMenu({nav = []}) {
 				duration: 0.4, type: "tween", ease: "easeOut",
 			} 
 		},
-		exit: {
-			opacity: 0, x:20, y: 10, transition: {delay: 0.2, duration: 0.15}
-		}
+		exit: (delayedTransition) => ({
+			opacity: 0, x:40, y: 10, transition: {delay: delayedTransition ? 0.64 : 0, duration: delayedTransition ? 0.3 : 0.1}
+		})
 	}
 
- 	return (
+	function startTransition() {
+		setMenuState('TRANSITION')
+	}
+
+
+ 	return (	 
 		<nav className="fixed z-50 right-0 md:!hidden">
 			<motion.div 
-				variants={variants} 
+				variants={menuFrame} 
 				initial={false}
-				animate={open ? "open": "closed"} 
-				exit="closed"
+				animate={menuState.value === 'closed' ? 'closed' : 'open'} 
 				className="float-right text-white px-4 bg-gradient-to-tr from-black to-gray-800">
 				<motion.button
-					onClick={()=>{setOpen(!open)}} 
+					onClick={()=>{setMenuState(menuState.value === 'open' ? 'CLOSE' : 'OPEN')}} 
 					type="button" 
-					exit={{}}
 					className="fixed rounded-full clean-outline right-4 top-4 w-14 h-14 no-tap active:bg-gray-700">
 					<span className="sr-only">Navigation öffnen</span>
 					<svg width="24" height="24" fill="none" className="absolute top-1/2 left-1/2 -mt-3 -ml-3 transition duration-300 transform scale-125">
-						<path d={open ? "M6 18L18 6M6 6l12 12" : "M4 8h16M4 16h16"} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+						<path d={menuState.value !== 'closed' ? "M6 18L18 6M6 6l12 12" : "M4 8h16M4 16h16"} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
 					</svg> 
 				</motion.button>
-				{open ? <>
+				<AnimatePresence custom={menuState.value == 'transition'}>
+				{menuState.value === 'open' && <>
 					<motion.ol 
-						variants={menu}
+						variants={menuList}
     				initial="hidden"
 						exit="exit"
     				animate="show" className="mt-10 p-4 text-7xl font-serif space-y-2 flex flex-col mb-4">
-							{nav.map((item)=>(
+							{navigation.map((item)=>(
 								<motion.li key={item.title} variants={menuItem}>
-									<Link href={`/${item.slug}`}><a className={activePath(item) ? "text-stroke" : "active:text-stroke"}>{item.title}</a></Link>
+									{item.hasChildren
+									 ? <SubLinks activePath={activePath} onClick={startTransition} item={item} />
+									 : <Link href={`/${item.slug}`}><a onClick={startTransition}  className={activePath(item) ? "text-stroke" : "active:text-stroke"}>{item.title}</a></Link>
+									}
 								</motion.li>
 							))}
 						</motion.ol>
@@ -113,10 +126,34 @@ export default function MobileMenu({nav = []}) {
 							Youtube 
 						</a>
 						</motion.div>
-						</> : null }
+						</> }
+						</AnimatePresence>
 			</motion.div>
 			
-			<style global jsx>{`body {overflow: ${open ? 'hidden': 'auto'};}`}</style>
+			<style global jsx>{`body {overflow: ${menuState.value == 'open' ? 'hidden': 'auto'};}`}</style>
 		</nav>
  )
+}
+
+function SubLinks({item, onClick, activePath}) {
+	const { asPath } = useRouter()
+	const [collapsed, setCollapse] = useState(true)
+ 	return (
+		<div>
+			<div onClick={()=>setCollapse(!collapsed)} className="active:text-indigo-100 flex justify-between items-center">
+				<span className={activePath(item) && 'text-stroke'}>{item.title}</span>
+				<svg className={`text-gray-200/80 transition duration-75 origin-center transform  ${!collapsed && 'rotate-180'}`} xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="0.5" strokeLinecap="square"><path d="M6 9l6 6 6-6"/></svg>
+			</div>
+			{
+				!collapsed && 
+				<ul className="px-1 mt-3 mb-8 space-y-2 font-medium text-gray-200/70">
+					{item.children.map((item)=>(
+						<li className="font-sans text-3xl">
+							<Link href={item.slug}><a className={`${activePath(item, true) ? 'text-white': ''}`} onClick={onClick} >{item.title}</a></Link>
+						</li>
+						))}
+				</ul>
+			}
+		</div>
+	)
 }

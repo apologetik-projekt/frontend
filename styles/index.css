@@ -37,6 +37,9 @@ body {
   grid-area: stack;
 }
 
+.will-change {
+  will-change: transform;
+}
 
 .text-nav {
   font-size: 0.94rem;
@@ -54,14 +57,14 @@ li::marker {
 }
 
 .pb-16\:9 {
-  padding-bottom: 56.5%;
+  padding-bottom: 56%;
 }
 .pb-16\:11 {
   padding-bottom: 68.75%;
 }
-.desaturate { filter: brightness(1.1)}
+.desaturate { filter: brightness(1.2) saturate(1.1) contrast(0.95)}
 @media screen and (min-width: 768px) {
-  .desaturate { filter: grayscale(0.9) brightness(0.75) contrast(1) }
+  .desaturate { filter: grayscale(0.9) brightness(1.3) contrast(1) }
 }
 
 .text-stroke, .active\:text-stroke:active {
@@ -73,7 +76,7 @@ li::marker {
 .text-stroke-100 {
   -webkit-text-stroke: 0.5px black
 }
-
+@import url('https://fonts.googleapis.com/css2?family=Alike&display=swap');
 .clean-outline {
   @apply bg-gray-600;
   @apply bg-opacity-0;

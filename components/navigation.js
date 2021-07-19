@@ -2,15 +2,16 @@ import Link from 'next/link'
 import { useNavigation } from '../lib/hooks'
 
 export default function Navigation({background = "light", nav = [{}]}){
-	const { activePath } = useNavigation()
+	const { navigation, activePath } = useNavigation()
+
 	const activeStyles = `bg-gray-300 ${background == 'dark' ? 'bg-opacity-10' : 'bg-opacity-70'}`
 
 	return(
 		<nav className="w-full relative z-10 max-w-5xl mx-auto py-6 px-4 sm:px-5 md:pl-7 lg:px-0 flex justify-between items-center">
 			<Link href="/"><a className="font-sans leading-none font-black tracking-wide text-xl ml-1">DER APOLOGETIK <br/> CHANNEL</a></Link>
 			<ul className="hidden md:flex space-x-2 leading-none items-start font-medium uppercase text-nav">
-				{nav.map((item)=>(
-					<Link key={item.slug} href={item.hasChildren ? "" : `/${item.slug}`}>
+				{navigation.map((item)=>(
+					<Link key={item.slug || 'home'} href={item.hasChildren ? "" : `/${item.slug}`}>
 						<li className="group relative leading-none">
 							<a className={`px-3 py-2 rounded-md ${background == 'dark' ? 'hover:bg-gray-300' : 'hover:bg-gray-800' } hover:bg-opacity-10 ${item.hasChildren ? "hover:cursor-menu" : "hover:cursor-pointer"}  whitespace-nowrap ${activePath(item) ? activeStyles : null}`}>
 								<span>{item.title}</span>
@@ -25,7 +26,6 @@ export default function Navigation({background = "light", nav = [{}]}){
 									</ul>
 									</div>
 								}
-				
 						</li>
 					</Link>
 				))}
