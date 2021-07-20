@@ -77,9 +77,17 @@ li::marker {
   -webkit-text-stroke: 0.5px black
 }
 @import url('https://fonts.googleapis.com/css2?family=Alike&display=swap');
+
 .clean-outline {
   @apply bg-gray-600;
   @apply bg-opacity-0;
   @apply focus:outline-none;
   @apply focus:bg-opacity-20;
+}
+
+.input-field {
+  @apply px-4 py-3 leading-tight;
+  @apply bg-gray-500 bg-opacity-20 border-2 border-transparent;
+  @apply rounded-md appearance-none focus:outline-none;
+  @apply focus:bg-gray-200 focus:border-gray-500;
 }

@@ -43,7 +43,7 @@ export default function Hero({children, heading, image}){
         </div>
 
 				<svg id="bg-slash" className="z-10" preserveAspectRatio="none" width="100%" height="60px" viewBox="0 0 1000 50">
-					<path width="100%" height="100%" d="M 0 50 L 1000 50 L 1000 0 L 0 50 Z" fill="white" stroke="none"/>
+					<path width="100%" height="100%" d="M 0 50 L 1000 50 L 1000 0 L 0 50 Z" fill="#F5F5F5" stroke="none"/>
 				</svg>
 
 				<style jsx global>{`
