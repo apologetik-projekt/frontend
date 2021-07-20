@@ -7,14 +7,14 @@ export default function Article({article}){
 	return (	
 		<article className="max-w-4xl mx-auto p-4 pb-10">
 			<NextSeo
-				title={`${article.seo_title ?? article.title} | Apologetik Channel`}
-				description={article.description}
+				title={`${article?.seo_title ?? article?.title} | Apologetik Channel`}
+				description={article?.description}
 				//canonical="https://www.canonical.ie/"
 				openGraph={{
-					url: 'https://apologetik-channel.de/'+article.uri,
-					title: `${article.seo_title ?? article.title} | Apologetik Channel`,
-					description: article.description,
-					images: [{url: article.image.url}],
+					url: 'https://apologetik-channel.de/'+article?.uri,
+					title: `${article?.seo_title ?? article?.title} | Apologetik Channel`,
+					description: article?.description,
+					images: [{url: article?.image?.url}],
 					site_name: 'Der Apologetik Channel',
 				}}
 				twitter={{cardType: 'summary'}}
@@ -83,9 +83,8 @@ export async function getStaticProps({ params }) {
 				"tags": true,
 				"uri": true,
 				"blocks": "page.content.blocks.toBlocks",
-				"meta_title": true,
-				"meta_description": true,
-				"meta_author": true,
+				"seo_title": true,
+				"description": true
 			}
 	})
 

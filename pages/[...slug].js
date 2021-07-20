@@ -27,7 +27,7 @@ export default function Slug({
   return (
     <NavigationContext.Provider value={navigation}>
       <main className="max-w-4xl mx-auto px-4 pt-4 pb-10">
-        {page.content.blocks.map((block)=>{
+        {page?.content?.blocks.map((block)=>{
           if (block.type === "hero") return (
             <h1 key={block.id} className="font-bold text-6xl font-serif mt-4 mb-14 text-center">{block.content.heading}</h1>
           )
