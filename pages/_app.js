@@ -28,23 +28,23 @@ function MyApp({ Component, pageProps, router }) {
             twitter={{ cardType: 'summary_large_image' }}
       />
       
-      <Layout hero={Component.hero}> 
+      <Layout hero={Component.hero} theme={Component.theme}> 
         <AnimatePresence>
           <motion.div key={router.asPath} initial={router.asPath !== '/' ? "pageInitial" : false} exit={router.asPath === '/' || blockAnimation ? {} : "exit"} animate="pageAnimate" variants={{
               pageInitial: {
                 opacity: 0.5,
-                y: 12,
+                y: 16,
                 transition: { ease: 'easeIn'}
               },
               pageAnimate: {
                 opacity: 1,
                 y: 0,
-                transition: {ease: 'easeOut'}
+                transition: {ease: 'easeInOut'}
               },
               exit: {
                 opacity: 1,
-                y: -4,
-                transition: { duration: 0.1, delay: 0 }
+                y: 0,
+                transition: { duration: 0.05, delay: 0, ease: 'easeIn' }
               }
             }}>
               

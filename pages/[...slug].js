@@ -6,7 +6,6 @@ import Container from '../components/container'
 import Image from 'next/image'
 import Navigation from '../components/navigation'
 import {getPage, getNavStructure} from '../lib/api'
-import Footer from '../components/footer'
 import { NavigationContext } from '../lib/context'
 import dynamic from 'next/dynamic'
 
@@ -61,7 +60,6 @@ export default function Slug({
           }
         })}							
       </main>
-      <Footer />
     </NavigationContext.Provider>
   )
 }
@@ -91,7 +89,12 @@ export async function getStaticPaths() {
 		body: JSON.stringify({query: "site.pages.index"})
 		})
 		.then(res=>res.json())
-		.then((res)=>res.result.map((slug)=>({params: {slug: slug.split('/')}})))
+		.then((res)=>res.result.filter((slug)=>{
+      if (slug.includes('blog')) return false
+      else if (slug.includes('videos')) return false
+      else if (slug.includes('home')) return false
+      else return true})
+      .map((slug)=>({params: {slug: slug.split('/')}})))
 
   return {
     paths: paths,

@@ -13,8 +13,8 @@ export default function Videos({videos}) {
 		</Head>	
 		<section id="currentVideo" className="bg-gray-200 w-full -mt-24 pt-28">
 			<div className="max-w-4xl mx-auto pb-8 md:pb-28 mb-8 px-4">
-				<p className="uppercase font-semibold text-black/80 leading-loose ml-1 mb-0.5 text-[0.8rem] tracking-wide">
-					<svg className="inline -mt-1 mr-1 text-gray-600" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="butt"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+				<p className="uppercase font-semibold text-yellow-900/90 desaturate leading-loose ml-1 mb-0.5 text-[0.8rem] tracking-wide">
+					<svg className="inline -mt-1 mr-1 text-yellow-800" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="butt"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
 					Aktuelles Video
 				</p>
 				<div id="feature" className="flex flex-col md:flex-row mb-4">
@@ -46,7 +46,7 @@ export default function Videos({videos}) {
 			<section className="grid grid-cols-1 md:grid-cols-3 gap-y-10 md:gap-x-6">
 			{
 				videos.slice(1).map((video, index)=>(
-					<Link key={index} href=""><a className="font-bold hover:opacity-80 duration-200">
+					<Link key={index} href={`/videos/${video.id}`}><a className="font-bold hover:opacity-80 duration-200">
 						<Image alt={video.title} className="object-cover rounded-md shadow-sm w-full block" src={video.image.replace('default', 'hqdefault')} layout="responsive" width={300} height={166} />
 
 						<h3 className="font-bold text-gray-900 md:leading-tight text-xl md:text-base mt-2 md:mt-1">{video.title}</h3>

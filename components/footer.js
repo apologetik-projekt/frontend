@@ -4,7 +4,7 @@ export default function Footer(){
 
 	return (
 		<div className="w-full bg-gray-800 text-white mt-10">
-			<div className="xl:px-40 pb-12 px-2  max-w-5xl mx-auto">
+			<div className="xl:px-40 pb-12 px-4 lg:px-2 max-w-5xl mx-auto">
 				<div className="w-full pt-12 flex flex-col sm:flex-row justify-between">
 					<div className="w-full sm:w-2/5 pr-6 flex flex-col space-y-4">
 						<Link href="/"><a className="font-sans leading-none font-black tracking-wide text-xl">DER APOLOGETIK <br/> CHANNEL</a></Link>
@@ -13,10 +13,10 @@ export default function Footer(){
 					
 					<div className="w-full sm:w-3/5 flex flex-col sm:items-end mt-4 sm:mt-0 mr-1">
 						<ul className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-5">
-							<li><Link href="/about/team"><a className="opacity-70 hover:opacity-90">Über uns</a></Link></li>
-							<li><Link href="/kontakt"><a className="opacity-70 hover:opacity-90">Kontakt</a></Link></li>
-							<li><Link href="/impressum"><a className="opacity-70 hover:opacity-90">Impressum</a></Link></li>
-							<li><Link href="/datenschutz"><a className="opacity-70 hover:opacity-90">Datenschutz</a></Link></li>
+							<li><Link href="/about/team"><a className="opacity-70 hover:opacity-90 hover:border-b border-white">Über uns</a></Link></li>
+							<li><Link href="/kontakt"><a className="opacity-70 hover:opacity-90 hover:border-b border-white">Kontakt</a></Link></li>
+							<li><Link href="/impressum"><a className="opacity-70 hover:opacity-90 hover:border-b border-white">Impressum</a></Link></li>
+							<li><Link href="/datenschutz"><a className="opacity-70 hover:opacity-90 hover:border-b border-white">Datenschutz</a></Link></li>
 						</ul>
 						<div className="w-full sm:w-1/5 pt-4 flex items-end">
 							<div className="flex flex-row space-x-4">
