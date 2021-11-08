@@ -4,6 +4,6 @@ module.exports = {
     scrollRestoration: true
   },
   images: {
-    domains: ['img.youtube.com', 'apologetik.test', 'i.ytimg.com', "yt3.ggpht.com"],
+    domains: ['img.youtube.com', 'apologetik.test', 'i.ytimg.com', "yt3.ggpht.com", "cms.apologetik-projekt.de"],
   },
 }
