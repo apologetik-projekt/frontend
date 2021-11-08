@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <>
       <DefaultSeo
-            title="Der Apologetik Channel - Christliche Apologetik"
+            title="Das Apologetik Projekt - Christliche Apologetik"
             description="Christentum. Nicht nur schön, sondern auch wahr. Mit dem Apologetik Channel möchten wir Christen zurüsten, Zweiflern begegnen, Skeptikern antworten."
             openGraph={{
               type: 'website',
