@@ -80,7 +80,7 @@ export async function getStaticProps({ params, preview = false }) {
 }
 
 export async function getStaticPaths() {
-	const paths = await fetch("http://apologetik.test/api/query", {
+	const paths = await fetch(process.env.KIRBY_API_URL+"/query", {
 		method: 'POST',
 		headers: {
 				'Content-Type': 'application/json',
