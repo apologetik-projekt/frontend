@@ -8,7 +8,7 @@ export default function Navigation({background = "light", nav = [{}]}){
 
 	return(
 		<nav className={`w-full relative z-10 max-w-5xl mx-auto py-6 px-4 sm:px-5 md:pl-7 lg:px-0 flex justify-between items-center ${background == 'dark' ? 'text-gray-100' : ''}`}>
-			<Link href="/"><a className="font-sans leading-none font-black tracking-wide text-xl ml-1">DAS APOLOGETIK <br/> PROJEKT</a></Link>
+			<Link href="/"><a className="font-sans leading-none font-black tracking-wide text-xl ml-1">APOLOGETIK <br/> PROJEKT</a></Link>
 			<ul className="hidden md:flex space-x-2 leading-none items-start font-medium uppercase text-nav">
 				{navigation.map((item)=>(
 					<Link key={item.slug || 'home'} href={item.hasChildren ? "" : `/${item.slug}`}>
